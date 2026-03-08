@@ -10,7 +10,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import app.allulith.ui.impl.R
-import app.allulith.ui.impl.text.OrganiserBodyText
+import app.allulith.ui.impl.text.OrganiserSubHeaderText
 import app.allulith.ui.impl.theme.OrganiserTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -23,7 +23,7 @@ fun OrganiserTopBar(
 ) {
     TopAppBar(
         title = {
-            title?.let { OrganiserBodyText(text = it) }
+            title?.let { OrganiserSubHeaderText(text = it) }
         },
         modifier = modifier,
         navigationIcon = {

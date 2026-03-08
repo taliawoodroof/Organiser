@@ -1,7 +1,11 @@
 package app.allulith.home.impl.destinations.home.ui
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -61,13 +65,16 @@ private fun HomeScreen(
 private fun TasksRow(
     onUiEvent: (Home.UiEvent) -> Unit,
 ) {
-    OrganiserRowCard(
-        leadingIcon = R.drawable.ic_task,
-        onClick = {
-            onUiEvent(Home.UiEvent.OnTasksTap)
-        },
-        text = stringResource(R.string.home_tasks_row_header),
-    )
+    Column {
+        Spacer(modifier = Modifier.height(OrganiserTheme.dimensions.dim150))
+        OrganiserRowCard(
+            leadingIcon = R.drawable.ic_task,
+            onClick = {
+                onUiEvent(Home.UiEvent.OnTasksTap)
+            },
+            text = stringResource(R.string.home_tasks_row_header),
+        )
+    }
 }
 
 @Composable
