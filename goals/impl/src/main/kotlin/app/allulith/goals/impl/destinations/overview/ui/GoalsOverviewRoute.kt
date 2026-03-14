@@ -5,7 +5,6 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavKey
 import app.allulith.goals.impl.R
 import app.allulith.ui.impl.components.appbars.OrganiserTopBar
@@ -23,14 +22,12 @@ internal fun GoalsOverviewRoute(
     ),
 ) {
     OverviewScreen(
-        uiState = viewModel.uiState.collectAsStateWithLifecycle().value,
         onUiEvent = viewModel::onUiEvent,
     )
 }
 
 @Composable
 private fun OverviewScreen(
-    uiState: GoalsOverview.UiState,
     onUiEvent: (GoalsOverview.UiEvent) -> Unit,
 ) {
     OrganiserScreen(
@@ -63,7 +60,6 @@ private fun OverviewScreen(
 private fun OverviewScreenPreview() {
     OrganiserTheme {
         OverviewScreen(
-            uiState = GoalsOverview.UiState(),
             onUiEvent = {},
         )
     }

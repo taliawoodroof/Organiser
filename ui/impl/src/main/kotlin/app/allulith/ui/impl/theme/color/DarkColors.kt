@@ -1,3 +1,5 @@
+@file:Suppress("MagicNumber")
+
 package app.allulith.ui.impl.theme.color
 
 import androidx.compose.material3.darkColorScheme

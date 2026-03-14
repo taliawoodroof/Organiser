@@ -27,7 +27,8 @@ import javax.inject.Inject
 internal class OrganiserActivity : ComponentActivity() {
 
     @Inject
-    lateinit var entryBuilders: Set<@JvmSuppressWildcards EntryProviderScope<NavKey>.(SnapshotStateList<NavKey>) -> Unit>
+    lateinit var entryBuilders:
+        Set<@JvmSuppressWildcards EntryProviderScope<NavKey>.(SnapshotStateList<NavKey>) -> Unit>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

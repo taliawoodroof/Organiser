@@ -137,6 +137,8 @@ complexity:
     ignoreDefaultParameters: false
     ignoreDataClasses: true
     ignoreAnnotatedParameter: []
+    ignoreAnnotated:
+      - 'Composable'
   MethodOverloading:
     active: false
     threshold: 6
@@ -744,7 +746,7 @@ style:
   UntilInsteadOfRangeTo:
     active: false
   UnusedImports:
-    active: false
+    active: true
   UnusedParameter:
     active: true
     allowedNames: 'ignored|expected'
@@ -798,5 +800,3 @@ style:
     ignoreLateinitVar: false
   WildcardImport:
     active: true
-    excludeImports:
-      - 'java.util.*'
