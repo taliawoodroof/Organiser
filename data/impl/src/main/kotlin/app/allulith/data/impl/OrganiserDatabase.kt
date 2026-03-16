@@ -1,3 +1,5 @@
+@file:Suppress("ImplFunctionsMustBeInternal")
+
 package app.allulith.data.impl
 
 import android.content.Context
