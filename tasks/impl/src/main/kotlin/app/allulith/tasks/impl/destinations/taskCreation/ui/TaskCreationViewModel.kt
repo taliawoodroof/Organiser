@@ -56,12 +56,8 @@ internal class TaskCreationViewModel @AssistedInject constructor(
             is TaskCreation.UiEvent.OnTitleChange -> onTitleChange(text = uiEvent.text)
             TaskCreation.UiEvent.OnShowTimerPicker -> showTimePicker()
             TaskCreation.UiEvent.OnDismissTimePickerDialog -> hideTimePicker()
-            is TaskCreation.UiEvent.OnTimeChange -> {
-                onTimeChange(
-                    hour = uiEvent.hour,
-                    minute = uiEvent.minute,
-                )
-            }
+            is TaskCreation.UiEvent.OnTimeChange ->
+                onTimeChange(hour = uiEvent.hour, minute = uiEvent.minute,)
             TaskCreation.UiEvent.OnDeleteTap -> deleteTask()
             TaskCreation.UiEvent.OnUpdateTaskTap -> createOrUpdateTask(updateTask = true)
         }

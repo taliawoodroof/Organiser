@@ -71,7 +71,9 @@ private fun OverviewScreen(
         },
     ) {
         when (uiState.tasks) {
-            TasksOverview.TasksStructure.NoTasks -> NoTasks()
+            TasksOverview.TasksStructure.NoTasks -> {
+                NoTasks()
+            }
             is TasksOverview.TasksStructure.Tasks -> {
                 Tasks(
                     tasks = uiState.tasks,

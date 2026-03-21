@@ -13,7 +13,6 @@ import org.jetbrains.kotlin.lexer.KtTokens
 
 class InternalImplRule(config: Config) : Rule(
     config,
-     // "All functions inside packages ending with `.impl` must be internal."
 ) {
 
     override val issue = Issue(
