@@ -10,7 +10,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.multibindings.IntoSet
 
-
 @Module
 @InstallIn(ActivityRetainedComponent::class)
 internal object RoutingNavigationModule {

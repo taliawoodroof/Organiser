@@ -11,6 +11,18 @@ import app.allulith.ui.impl.theme.OrganiserTheme
 
 internal object OrganiserTextFieldDefaults {
 
+    val textStyle: TextStyle
+        @Composable
+        get() = OrganiserTheme.typography.body
+
+    val height: Dp
+        @Composable
+        get() = OrganiserTheme.dimensions.dim700
+
+    val shape: RoundedCornerShape
+        @Composable
+        get() = RoundedCornerShape(OrganiserTheme.dimensions.dim100)
+
     // TODO handle dropDown error state
     @Composable
     fun getColors(
@@ -65,16 +77,4 @@ internal object OrganiserTextFieldDefaults {
             errorSuffixColor = OrganiserTheme.colors.error,
         )
     }
-
-    val textStyle: TextStyle
-        @Composable
-        get() = OrganiserTheme.typography.body
-
-    val height: Dp
-        @Composable
-        get() = OrganiserTheme.dimensions.dim700
-
-    val shape: RoundedCornerShape
-        @Composable
-        get() = RoundedCornerShape(OrganiserTheme.dimensions.dim100)
 }

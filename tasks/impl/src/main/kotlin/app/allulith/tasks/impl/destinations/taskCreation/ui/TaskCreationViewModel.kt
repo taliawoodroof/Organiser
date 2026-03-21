@@ -156,7 +156,7 @@ internal class TaskCreationViewModel @AssistedInject constructor(
                     database.taskDao().update(task)
                     notificationRepository.cancelReminder(
                         context = context,
-                        reminderId = task.uidToInt(),
+                        reminderId = task.convertUidToInt(),
                     )
                 } else {
                     database.taskDao().insertAll(task)
@@ -172,7 +172,7 @@ internal class TaskCreationViewModel @AssistedInject constructor(
         notificationRepository.scheduleExactReminder(
             context = context,
             reminder = Reminder(
-                id = task.uidToInt(),
+                id = task.convertUidToInt(),
                 hour = task.hour,
                 minute = task.minute,
                 title = task.title,

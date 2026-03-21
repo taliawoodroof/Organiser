@@ -533,24 +533,25 @@ style:
   CanBeNonNullable:
     active: false
   CascadingCallWrapping:
-    active: false
+    active: true
     includeElvis: true
   ClassOrdering:
-    active: false
+    active: true
   CollapsibleIfStatements:
     active: false
   DataClassContainsFunctions:
-    active: false
+    active: true
     conversionFunctionPrefix:
       - 'to'
+      - 'convert'
     allowOperators: false
   DataClassShouldBeImmutable:
-    active: false
+    active: true
   DestructuringDeclarationWithTooManyEntries:
     active: true
     maxDestructuringEntries: 3
   DoubleNegativeLambda:
-    active: false
+    active: true
     negativeFunctions:
       - reason: 'Use `takeIf` instead.'
         value: 'takeUnless'
@@ -564,14 +565,14 @@ style:
   EqualsOnSignatureLine:
     active: false
   ExplicitCollectionElementAccessMethod:
-    active: false
+    active: true
   ExplicitItLambdaParameter:
     active: true
   ExpressionBodySyntax:
     active: false
     includeLineWrapping: false
   ForbiddenAnnotation:
-    active: false
+    active: true
     annotations:
       - reason: 'it is a java annotation. Use `Suppress` instead.'
         value: 'java.lang.SuppressWarnings'
@@ -642,7 +643,7 @@ style:
     ignoreRanges: false
     ignoreExtensionFunctions: true
   MandatoryBracesLoops:
-    active: false
+    active: true
   MaxChainedCallsOnSameLine:
     active: false
     maxChainedCalls: 5
@@ -672,7 +673,7 @@ style:
   NoTabs:
     active: false
   NullableBooleanCheck:
-    active: false
+    active: true
   ObjectLiteralToLambda:
     active: true
   OptionalAbstractKeyword:
@@ -702,9 +703,9 @@ style:
   SerialVersionUIDInSerializableClass:
     active: true
   SpacingBetweenPackageAndImports:
-    active: false
+    active: true
   StringShouldBeRawString:
-    active: false
+    active: true
     maxEscapedCharacterCount: 2
     ignoredCharacters: []
   ThrowsCount:
@@ -719,7 +720,7 @@ style:
       - 'trimIndent'
       - 'trimMargin'
   UnderscoresInNumericLiterals:
-    active: false
+    active: true
     acceptableLength: 4
     allowNonStandardGrouping: false
   UnnecessaryAbstractClass:
@@ -741,7 +742,7 @@ style:
   UnnecessaryLet:
     active: false
   UnnecessaryParentheses:
-    active: false
+    active: true
     allowForUnclearPrecedence: false
   UntilInsteadOfRangeTo:
     active: false
@@ -770,12 +771,12 @@ style:
   UseCheckOrError:
     active: true
   UseDataClass:
-    active: false
+    active: true
     allowVars: false
   UseEmptyCounterpart:
-    active: false
+    active: true
   UseIfEmptyOrIfBlank:
-    active: false
+    active: true
   UseIfInsteadOfWhen:
     active: false
     ignoreWhenContainingVariableDeclaration: false
