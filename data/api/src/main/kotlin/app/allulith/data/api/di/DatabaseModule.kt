@@ -1,7 +1,7 @@
-package app.allulith.data.impl.di
+package app.allulith.data.api.di
 
 import android.content.Context
-import app.allulith.data.impl.OrganiserDatabase
+import app.allulith.data.api.OrganiserDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

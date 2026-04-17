@@ -42,7 +42,7 @@ dependencies {
 
     implementation(project(":signup:api"))
     implementation(project(":home:api"))
-    implementation(project(":data:impl"))
+    implementation(project(":data:api"))
 
     implementation(libs.bundles.arrow)
     implementation(libs.bundles.hilt)

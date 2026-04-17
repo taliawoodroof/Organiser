@@ -1,6 +1,6 @@
 package app.allulith.home.impl.destinations.home.data
 
-import app.allulith.data.impl.OrganiserDatabase
+import app.allulith.data.api.OrganiserDatabase
 import app.allulith.home.impl.destinations.home.domain.HomeRepository
 import app.allulith.home.impl.destinations.home.domain.NameNotFound
 import arrow.core.Either

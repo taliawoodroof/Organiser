@@ -1,7 +1,7 @@
 package app.allulith.routing.impl.destinations.routing.data
 
-import app.allulith.data.impl.OrganiserDatabase
-import app.allulith.data.impl.entity.User
+import app.allulith.data.api.OrganiserDatabase
+import app.allulith.data.api.entity.User
 import app.allulith.routing.impl.destinations.routing.domain.RoutingRepository
 import app.allulith.routing.impl.destinations.routing.domain.UserNotFound
 import arrow.core.Either

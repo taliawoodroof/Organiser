@@ -1,6 +1,6 @@
 package app.allulith.settings.impl.destinations.settings.data
 
-import app.allulith.data.impl.OrganiserDatabase
+import app.allulith.data.api.OrganiserDatabase
 import app.allulith.settings.impl.destinations.settings.domain.SettingsRepository
 import javax.inject.Inject
 

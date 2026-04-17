@@ -16,10 +16,10 @@ class InternalImplRule(config: Config) : Rule(
 ) {
 
     override val issue = Issue(
-        id = "ImplFunctionsMustBeInternal",
+        id = "ImplModulesMustHaveAllFilesInternal",
         severity = Severity.Defect,
-        description = "Functions in `.impl` packages must be internal.",
-        debt = Debt.FIVE_MINS
+        description = "Files in `.impl` packages must be internal.",
+        debt = Debt.FIVE_MINS,
     )
 
     private var insideImplPackage = false
@@ -43,7 +43,7 @@ class InternalImplRule(config: Config) : Rule(
                 CodeSmell(
                     issue = issue,
                     entity = Entity.from(function),
-                    message = "Function `${function.name}` must be internal because it is in a `.impl` package."
+                    message = "File `${function.name}` must be internal because it is in a `.impl` package.",
                 )
             )
         }

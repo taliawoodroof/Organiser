@@ -1,7 +1,7 @@
 package app.allulith.signup.impl.destinations.accountCreation.data
 
-import app.allulith.data.impl.OrganiserDatabase
-import app.allulith.data.impl.entity.User
+import app.allulith.data.api.OrganiserDatabase
+import app.allulith.data.api.entity.User
 import app.allulith.signup.impl.destinations.accountCreation.domain.AccountCreationRepository
 import javax.inject.Inject
 import kotlin.uuid.ExperimentalUuidApi

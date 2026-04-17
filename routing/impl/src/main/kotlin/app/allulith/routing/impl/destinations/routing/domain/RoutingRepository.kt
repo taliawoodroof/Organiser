@@ -1,6 +1,6 @@
 package app.allulith.routing.impl.destinations.routing.domain
 
-import app.allulith.data.impl.entity.User
+import app.allulith.data.api.entity.User
 import arrow.core.Either
 
 internal interface RoutingRepository {

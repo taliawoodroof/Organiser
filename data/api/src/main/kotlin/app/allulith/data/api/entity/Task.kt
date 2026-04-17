@@ -1,4 +1,4 @@
-package app.allulith.data.impl.entity
+package app.allulith.data.api.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

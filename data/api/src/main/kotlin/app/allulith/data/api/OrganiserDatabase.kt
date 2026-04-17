@@ -1,15 +1,15 @@
 @file:Suppress("ImplFunctionsMustBeInternal")
 
-package app.allulith.data.impl
+package app.allulith.data.api
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import app.allulith.data.impl.dao.TaskDao
-import app.allulith.data.impl.dao.UserDao
-import app.allulith.data.impl.entity.Task
-import app.allulith.data.impl.entity.User
+import app.allulith.data.api.dao.TaskDao
+import app.allulith.data.api.dao.UserDao
+import app.allulith.data.api.entity.Task
+import app.allulith.data.api.entity.User
 
 @Database(
     entities = [User::class, Task::class],

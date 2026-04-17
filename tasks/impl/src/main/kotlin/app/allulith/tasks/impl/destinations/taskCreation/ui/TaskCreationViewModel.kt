@@ -6,8 +6,8 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation3.runtime.NavKey
-import app.allulith.data.impl.OrganiserDatabase
-import app.allulith.data.impl.entity.Task
+import app.allulith.data.api.OrganiserDatabase
+import app.allulith.data.api.entity.Task
 import app.allulith.notification.api.domain.NotificationRepository
 import app.allulith.notification.api.domain.Reminder
 import dagger.assisted.Assisted

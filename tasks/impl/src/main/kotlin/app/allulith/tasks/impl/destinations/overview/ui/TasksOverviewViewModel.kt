@@ -5,7 +5,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation3.runtime.NavKey
-import app.allulith.data.impl.OrganiserDatabase
+import app.allulith.data.api.OrganiserDatabase
 import app.allulith.tasks.api.destinations.TasksDestination
 import app.allulith.tasks.api.domain.Task
 import dagger.assisted.Assisted

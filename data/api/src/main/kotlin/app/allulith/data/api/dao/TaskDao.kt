@@ -1,11 +1,11 @@
-package app.allulith.data.impl.dao
+package app.allulith.data.api.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import app.allulith.data.impl.entity.Task
+import app.allulith.data.api.entity.Task
 import kotlinx.coroutines.flow.Flow
 
 @Dao

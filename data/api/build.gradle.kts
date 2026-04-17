@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "app.allulith.data.impl"
+    namespace = "app.allulith.data.api"
     compileSdk {
         version = release(36)
     }

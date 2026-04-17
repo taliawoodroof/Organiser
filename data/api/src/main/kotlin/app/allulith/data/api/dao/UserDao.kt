@@ -1,11 +1,11 @@
-package app.allulith.data.impl.dao
+package app.allulith.data.api.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import app.allulith.data.impl.entity.User
+import app.allulith.data.api.entity.User
 
 @Dao
 interface UserDao {

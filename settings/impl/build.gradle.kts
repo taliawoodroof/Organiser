@@ -43,8 +43,8 @@ android {
 
 dependencies {
     api(project(":settings:api"))
+    implementation(project(":data:api"))
 
-    implementation(project(":data:impl"))
     implementation(project(":ui:impl"))
     implementation(project(":signup:api"))
 
