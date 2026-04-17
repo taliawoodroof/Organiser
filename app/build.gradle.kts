@@ -9,13 +9,13 @@ plugins {
 android {
     namespace = "app.allulith.organiser"
     compileSdk {
-        version = release(36)
+        version = release(37)
     }
 
     defaultConfig {
         applicationId = "app.allulith.organiser"
         minSdk = 34
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "0.1.0-ALPHA"
 
@@ -49,7 +49,7 @@ android {
 
 dependencies {
     implementation(project(":ui:impl"))
-    implementation(project(":data:impl"))
+    implementation(project(":data:api"))
     implementation(project(":signup:impl"))
     implementation(project(":home:impl"))
     implementation(project(":routing:impl"))
