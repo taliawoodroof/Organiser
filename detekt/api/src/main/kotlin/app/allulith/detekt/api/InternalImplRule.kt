@@ -10,10 +10,9 @@ import io.gitlab.arturbosch.detekt.api.Severity
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.lexer.KtTokens
+import org.jetbrains.kotlin.psi.KtClassOrObject
 
-class InternalImplRule(config: Config) : Rule(
-    config,
-) {
+class InternalImplRule(config: Config) : Rule(config) {
 
     override val issue = Issue(
         id = "ImplModulesMustHaveAllFilesInternal",
@@ -22,19 +21,29 @@ class InternalImplRule(config: Config) : Rule(
         debt = Debt.FIVE_MINS,
     )
 
-    private var insideImplPackage = false
-
     override fun visitKtFile(file: KtFile) {
         val pkg = file.packageFqName.asString()
-        insideImplPackage = pkg.endsWith(".impl")
-        super.visitKtFile(file)
-    }
 
-    override fun visitNamedFunction(function: KtNamedFunction) {
-        super.visitNamedFunction(function)
-
+        val insideImplPackage = pkg.split('.').contains("impl")
         if (!insideImplPackage) return
 
+        file.declarations.forEach { declaration ->
+            when (declaration) {
+                is KtNamedFunction -> checkFunction(declaration)
+                is KtClassOrObject -> checkClassOrObject(declaration)
+            }
+        }
+    }
+
+    private fun checkClassOrObject(classOrObject: KtClassOrObject) {
+        classOrObject.declarations.forEach { member ->
+            if (member is KtNamedFunction) {
+                checkFunction(member)
+            }
+        }
+    }
+
+    private fun checkFunction(function: KtNamedFunction) {
         val isInternal = function.hasModifier(KtTokens.INTERNAL_KEYWORD)
         val isPrivate = function.hasModifier(KtTokens.PRIVATE_KEYWORD)
 
@@ -43,7 +52,7 @@ class InternalImplRule(config: Config) : Rule(
                 CodeSmell(
                     issue = issue,
                     entity = Entity.from(function),
-                    message = "File `${function.name}` must be internal because it is in a `.impl` package.",
+                    message = "Function `${function.name}` must be internal because it is in a `.impl` package.",
                 )
             )
         }
