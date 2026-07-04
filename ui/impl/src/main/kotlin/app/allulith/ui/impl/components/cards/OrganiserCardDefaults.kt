@@ -17,9 +17,13 @@ internal object OrganiserCardDefaults {
             disabledContentColor = OrganiserTheme.colors.onSurface.copy(alpha = 0.5f),
         )
 
-    val textStyle: TextStyle
+    val headerTextStyle: TextStyle
         @Composable
         get() = OrganiserTheme.typography.subHeader
+
+    val descriptionTextStyle: TextStyle
+        @Composable
+        get() = OrganiserTheme.typography.body
 
     val shape: RoundedCornerShape
         @Composable

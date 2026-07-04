@@ -35,7 +35,8 @@ fun OrganiserCustomCard(
 @Composable
 fun OrganiserRowCard(
     onClick: () -> Unit,
-    text: String,
+    header: String,
+    description: String? = null,
     @DrawableRes leadingIcon: Int? = null,
 ) {
     OrganiserCustomCard (
@@ -52,12 +53,23 @@ fun OrganiserRowCard(
                         contentDescription = null,
                     )
                 }
-                Text(
-                    text = text,
+                Column(
                     modifier = Modifier.weight(1f),
-                    style = OrganiserCardDefaults.textStyle,
-                    color = OrganiserCardDefaults.colors.contentColor,
-                )
+                    verticalArrangement = Arrangement.spacedBy(OrganiserTheme.dimensions.dim050),
+                ) {
+                    Text(
+                        text = header,
+                        style = OrganiserCardDefaults.headerTextStyle,
+                        color = OrganiserCardDefaults.colors.contentColor,
+                    )
+                    if (description != null) {
+                        Text(
+                            text = description,
+                            style = OrganiserCardDefaults.descriptionTextStyle,
+                            color = OrganiserCardDefaults.colors.contentColor,
+                        )
+                    }
+                }
                 Icon(
                     painter = painterResource(R.drawable.ic_chevron),
                     contentDescription = null,
@@ -91,13 +103,14 @@ private fun OrganiserCardPreview() {
 
             OrganiserRowCard(
                 onClick = {},
-                text = "Row",
+                header = "Row",
+                description = "Description",
             )
-
             OrganiserRowCard(
                 leadingIcon = R.drawable.ic_close,
                 onClick = {},
-                text = "Leading Icon",
+                header = "Leading Icon",
+                description = "Description",
             )
         }
     }

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextDirection.Companion.Content
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -73,7 +74,7 @@ private fun TasksRow(
             onClick = {
                 onUiEvent(Home.UiEvent.OnTasksTap)
             },
-            text = stringResource(R.string.home_tasks_row_header),
+            header = stringResource(R.string.home_tasks_row_header),
         )
     }
 }
@@ -87,7 +88,7 @@ private fun GoalsRow(
         onClick = {
             onUiEvent(Home.UiEvent.OnGoalsTap)
         },
-        text = stringResource(R.string.home_goals_row_header),
+        header = stringResource(R.string.home_goals_row_header),
     )
 }
 
@@ -100,7 +101,7 @@ private fun RemindersRow(
         onClick = {
             onUiEvent(Home.UiEvent.OnRemindersTap)
         },
-        text = stringResource(R.string.home_reminders_row_header),
+        header = stringResource(R.string.home_reminders_row_header),
     )
 }
 
