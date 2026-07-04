@@ -68,7 +68,7 @@ internal class TasksOverviewViewModel @AssistedInject constructor(
     }
 
     private fun addTask() {
-        backStack.add(TasksDestination.TaskCreation(task = null))
+        backStack.add(TasksDestination.TaskCreation(taskId = null))
     }
 
     private fun onBack() {
@@ -76,7 +76,7 @@ internal class TasksOverviewViewModel @AssistedInject constructor(
     }
 
     private fun viewTask(task: Task) {
-        backStack.add(TasksDestination.TaskCreation(task = task))
+        backStack.add(TasksDestination.TaskCreation(taskId = task.id))
     }
 
     @AssistedFactory

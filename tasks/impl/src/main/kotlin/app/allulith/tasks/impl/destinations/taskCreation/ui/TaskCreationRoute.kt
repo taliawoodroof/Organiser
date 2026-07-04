@@ -1,6 +1,8 @@
 package app.allulith.tasks.impl.destinations.taskCreation.ui
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
@@ -25,13 +27,13 @@ import app.allulith.ui.impl.theme.OrganiserTheme
 @Composable
 internal fun TaskCreationRoute(
     backStack: NavBackStack<NavKey>,
-    task: Task?,
+    taskId: String?,
     viewModel: TaskCreationViewModel = hiltViewModel(
         key = backStack.hashCode().toString(),
         creationCallback = { factory: TaskCreationViewModel.Factory ->
             factory.create(
                 backStack = backStack,
-                task = task,
+                taskId = taskId,
             )
         }
     ),
@@ -48,41 +50,51 @@ private fun TaskCreationScreen(
     uiState: TaskCreation.UiState,
     onUiEvent: (TaskCreation.UiEvent) -> Unit,
 ) {
-    AnimatedVisibility(visible = uiState.isTimePickerVisible) {
-        OrganiserTimePicker(
-            hour = uiState.hour,
-            minute = uiState.minute,
-            onConfirm = {
-                onUiEvent(
-                    TaskCreation.UiEvent.OnTimeChange(
-                        hour = it.hour,
-                        minute = it.minute,
-                    )
+    when (uiState) {
+        is TaskCreation.UiState.Content -> {
+            AnimatedVisibility(visible = uiState.isTimePickerVisible) {
+                OrganiserTimePicker(
+                    hour = uiState.hour,
+                    minute = uiState.minute,
+                    onConfirm = {
+                        onUiEvent(
+                            TaskCreation.UiEvent.OnTimeChange(
+                                hour = it.hour,
+                                minute = it.minute,
+                            )
+                        )
+                    },
+                    onDismiss = { onUiEvent(TaskCreation.UiEvent.OnDismissTimePickerDialog) },
                 )
-            },
-            onDismiss = { onUiEvent(TaskCreation.UiEvent.OnDismissTimePickerDialog) },
-        )
-    }
+            }
 
-    when (uiState.taskState) {
-        TaskCreation.TaskState.Edit -> {
-            EditSection(
-                uiState = uiState,
-                onUiEvent = onUiEvent,
-            )
+            when (uiState.taskState) {
+                TaskCreation.TaskState.Edit -> {
+                    EditSection(
+                        uiState = uiState,
+                        onUiEvent = onUiEvent,
+                    )
+                }
+
+                TaskCreation.TaskState.New -> {
+                    NewSection(
+                        uiState = uiState,
+                        onUiEvent = onUiEvent,
+                    )
+                }
+            }
         }
-        TaskCreation.TaskState.New -> {
-            NewSection(
-                uiState = uiState,
-                onUiEvent = onUiEvent,
-            )
+
+        // Since we are loading from the database, this will be near instant
+        TaskCreation.UiState.Loading -> {
+            Box(modifier = Modifier.fillMaxSize())
         }
     }
 }
 
 @Composable
 private fun EditSection(
-    uiState: TaskCreation.UiState,
+    uiState: TaskCreation.UiState.Content,
     onUiEvent: (TaskCreation.UiEvent) -> Unit,
 ) {
     OrganiserScreen(
@@ -118,7 +130,7 @@ private fun EditSection(
 
 @Composable
 private fun NewSection(
-    uiState: TaskCreation.UiState,
+    uiState: TaskCreation.UiState.Content,
     onUiEvent: (TaskCreation.UiEvent) -> Unit,
 ) {
     OrganiserScreen(
@@ -147,7 +159,7 @@ private fun NewSection(
 
 @Composable
 private fun Content(
-    uiState: TaskCreation.UiState,
+    uiState: TaskCreation.UiState.Content,
     onUiEvent: (TaskCreation.UiEvent) -> Unit,
 ) {
     OrganiserTextField(
@@ -191,7 +203,7 @@ private fun Content(
 private fun TaskCreationScreenPreview() {
     OrganiserTheme {
         TaskCreationScreen(
-            uiState = TaskCreation.UiState(
+            uiState = TaskCreation.UiState.Content(
                 taskTitle = "",
                 taskDescription = "",
                 hour = 0,

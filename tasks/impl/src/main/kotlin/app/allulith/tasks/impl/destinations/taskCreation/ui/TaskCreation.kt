@@ -1,16 +1,19 @@
 package app.allulith.tasks.impl.destinations.taskCreation.ui
 internal object TaskCreation {
 
-    data class UiState(
-        val taskTitle: String,
-        val taskDescription: String,
-        val hour: Int? = null,
-        val minute: Int? = null,
-        val isTimePickerVisible: Boolean = false,
-        val taskTitleError: Boolean = false,
-        val timeError: Boolean = false,
-        val taskState: TaskState,
-    )
+    sealed class UiState {
+        data object Loading : UiState()
+        data class Content(
+            val taskTitle: String = "",
+            val taskDescription: String = "",
+            val hour: Int? = null,
+            val minute: Int? = null,
+            val isTimePickerVisible: Boolean = false,
+            val taskTitleError: Boolean = false,
+            val timeError: Boolean = false,
+            val taskState: TaskState,
+        ) : UiState()
+    }
 
     sealed class TaskState {
         data object Edit : TaskState()

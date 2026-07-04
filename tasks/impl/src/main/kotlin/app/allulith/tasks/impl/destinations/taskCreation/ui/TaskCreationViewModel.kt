@@ -21,32 +21,46 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
-import app.allulith.tasks.api.domain.Task as DomainTask
 
 @Stable
 @HiltViewModel(assistedFactory = TaskCreationViewModel.Factory::class)
 internal class TaskCreationViewModel @AssistedInject constructor(
     @param:ApplicationContext val context: Context,
     @Assisted private val backStack: NavBackStack<NavKey>,
-    @Assisted private val task: DomainTask?,
+    @Assisted private val taskId: String?,
     private val database: OrganiserDatabase,
     private val notificationRepository: NotificationRepository,
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<TaskCreation.UiState> = MutableStateFlow(
-        TaskCreation.UiState(
-            taskTitle = task?.title ?: "",
-            taskDescription = task?.description ?: "",
-            hour = task?.hour,
-            minute = task?.minute,
-            taskState = if (task == null) {
-                TaskCreation.TaskState.New
-            } else {
-                TaskCreation.TaskState.Edit
-            },
-        )
+        TaskCreation.UiState.Loading,
     )
     val uiState = _uiState.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            _uiState.value = if (taskId != null) {
+                val task = database.taskDao().get(taskId = taskId)
+                if (task != null) {
+                    TaskCreation.UiState.Content(
+                        taskTitle = task.title,
+                        taskDescription = task.description ?: "",
+                        hour = task.hour,
+                        minute = task.minute,
+                        taskState = TaskCreation.TaskState.Edit,
+                    )
+                } else {
+                    TaskCreation.UiState.Content(
+                        taskState = TaskCreation.TaskState.New,
+                    )
+                }
+            } else {
+                TaskCreation.UiState.Content(
+                    taskState = TaskCreation.TaskState.New,
+                )
+            }
+        }
+    }
 
     fun onUiEvent(uiEvent: TaskCreation.UiEvent) {
         when (uiEvent) {
@@ -57,7 +71,7 @@ internal class TaskCreationViewModel @AssistedInject constructor(
             TaskCreation.UiEvent.OnShowTimerPicker -> showTimePicker()
             TaskCreation.UiEvent.OnDismissTimePickerDialog -> hideTimePicker()
             is TaskCreation.UiEvent.OnTimeChange ->
-                onTimeChange(hour = uiEvent.hour, minute = uiEvent.minute,)
+                onTimeChange(hour = uiEvent.hour, minute = uiEvent.minute)
             TaskCreation.UiEvent.OnDeleteTap -> deleteTask()
             TaskCreation.UiEvent.OnUpdateTaskTap -> createOrUpdateTask(updateTask = true)
         }
@@ -68,13 +82,13 @@ internal class TaskCreationViewModel @AssistedInject constructor(
     }
 
     private fun onDescriptionChange(text: String) {
-        _uiState.update {
+        _uiState.updateContentState {
             it.copy(taskDescription = text)
         }
     }
 
     private fun onTitleChange(text: String) {
-        _uiState.update {
+        _uiState.updateContentState {
             it.copy(
                 taskTitle = text,
                 taskTitleError = false,
@@ -83,7 +97,7 @@ internal class TaskCreationViewModel @AssistedInject constructor(
     }
 
     private fun showTimePicker() {
-        _uiState.update {
+        _uiState.updateContentState {
             it.copy(
                 isTimePickerVisible = true,
             )
@@ -91,7 +105,7 @@ internal class TaskCreationViewModel @AssistedInject constructor(
     }
 
     private fun hideTimePicker() {
-        _uiState.update {
+        _uiState.updateContentState {
             it.copy(
                 isTimePickerVisible = false,
             )
@@ -102,7 +116,7 @@ internal class TaskCreationViewModel @AssistedInject constructor(
         hour: Int,
         minute: Int,
     ) {
-        _uiState.update {
+        _uiState.updateContentState {
             it.copy(
                 hour = hour,
                 minute = minute,
@@ -114,8 +128,8 @@ internal class TaskCreationViewModel @AssistedInject constructor(
 
     private fun deleteTask() {
         viewModelScope.launch {
-            if (task != null) {
-                database.taskDao().delete(uid = task.id)
+            if (taskId != null) {
+                database.taskDao().delete(uid = taskId)
                 goBack()
             }
         }
@@ -125,14 +139,14 @@ internal class TaskCreationViewModel @AssistedInject constructor(
     private fun createOrUpdateTask(
         updateTask: Boolean,
     ) {
-        val uiState = _uiState.value
+        val uiState = _uiState.value as? TaskCreation.UiState.Content
 
-        if (task == null && updateTask) {
+        if (uiState == null || (taskId == null && updateTask)) {
             return
         }
 
         if (uiState.taskTitle.isBlank() || uiState.hour == null || uiState.minute == null) {
-            _uiState.update {
+            _uiState.updateContentState {
                 it.copy(
                     taskTitleError = uiState.taskTitle.isBlank(),
                     timeError = uiState.hour == null || uiState.minute == null,
@@ -141,7 +155,7 @@ internal class TaskCreationViewModel @AssistedInject constructor(
         } else {
             viewModelScope.launch {
                 val task = Task(
-                    uid = task?.id ?: Uuid.random().toString(),
+                    uid = taskId ?: Uuid.random().toString(),
                     title = uiState.taskTitle,
                     description = uiState.taskDescription.ifEmpty { null },
                     hour = uiState.hour,
@@ -177,11 +191,22 @@ internal class TaskCreationViewModel @AssistedInject constructor(
         )
     }
 
+    fun MutableStateFlow<TaskCreation.UiState>.updateContentState(
+        update: (TaskCreation.UiState.Content) -> TaskCreation.UiState.Content,
+    ) {
+        this.update { state ->
+            when (state) {
+                is TaskCreation.UiState.Content -> update(state)
+                else -> state
+            }
+        }
+    }
+
     @AssistedFactory
     interface Factory {
         fun create(
             backStack: NavBackStack<NavKey>,
-            task: DomainTask?,
+            taskId: String?,
         ): TaskCreationViewModel
     }
 }

@@ -17,7 +17,7 @@ internal fun EntryProviderScope<NavKey>.tasksNavigationBuilder(
     entry<TasksDestination.TaskCreation> {
         TaskCreationRoute(
             backStack = backStack,
-            task = it.task,
+            taskId = it.taskId,
         )
     }
 }
