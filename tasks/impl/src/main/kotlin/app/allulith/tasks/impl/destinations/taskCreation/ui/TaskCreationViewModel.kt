@@ -2,9 +2,9 @@ package app.allulith.tasks.impl.destinations.taskCreation.ui
 
 import android.content.Context
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import app.allulith.data.api.OrganiserDatabase
 import app.allulith.data.api.entity.Task
@@ -27,7 +27,7 @@ import app.allulith.tasks.api.domain.Task as DomainTask
 @HiltViewModel(assistedFactory = TaskCreationViewModel.Factory::class)
 internal class TaskCreationViewModel @AssistedInject constructor(
     @param:ApplicationContext val context: Context,
-    @Assisted private val backStack: SnapshotStateList<NavKey>,
+    @Assisted private val backStack: NavBackStack<NavKey>,
     @Assisted private val task: DomainTask?,
     private val database: OrganiserDatabase,
     private val notificationRepository: NotificationRepository,
@@ -180,7 +180,7 @@ internal class TaskCreationViewModel @AssistedInject constructor(
     @AssistedFactory
     interface Factory {
         fun create(
-            backStack: SnapshotStateList<NavKey>,
+            backStack: NavBackStack<NavKey>,
             task: DomainTask?,
         ): TaskCreationViewModel
     }

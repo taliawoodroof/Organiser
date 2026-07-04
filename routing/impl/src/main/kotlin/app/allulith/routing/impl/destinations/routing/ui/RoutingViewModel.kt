@@ -1,9 +1,9 @@
 package app.allulith.routing.impl.destinations.routing.ui
 
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import app.allulith.home.api.destinations.HomeDestination
 import app.allulith.routing.impl.destinations.routing.domain.RoutingRepository
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 @Stable
 @HiltViewModel(assistedFactory = RoutingViewModel.Factory::class)
 internal class RoutingViewModel @AssistedInject constructor(
-    @Assisted private val backStack: SnapshotStateList<NavKey>,
+    @Assisted private val backStack: NavBackStack<NavKey>,
     private val routingRepository: RoutingRepository,
 ) : ViewModel() {
 
@@ -38,6 +38,6 @@ internal class RoutingViewModel @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory {
-        fun create(backStack: SnapshotStateList<NavKey>): RoutingViewModel
+        fun create(backStack: NavBackStack<NavKey>): RoutingViewModel
     }
 }

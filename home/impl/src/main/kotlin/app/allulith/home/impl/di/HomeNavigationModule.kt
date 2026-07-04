@@ -1,7 +1,7 @@
 package app.allulith.home.impl.di
 
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import app.allulith.home.impl.homeNavigationBuilder
 import dagger.Module
@@ -16,7 +16,7 @@ internal object HomeNavigationModule {
 
     @IntoSet
     @Provides
-    fun provideHomeNavigation() : EntryProviderScope<NavKey>.(SnapshotStateList<NavKey>) -> Unit = { backStack ->
+    fun provideHomeNavigation() : EntryProviderScope<NavKey>.(NavBackStack<NavKey>) -> Unit = { backStack ->
         homeNavigationBuilder(backStack = backStack)
     }
 }

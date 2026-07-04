@@ -1,7 +1,7 @@
 package app.allulith.goals.impl.di
 
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import app.allulith.goals.impl.goalsNavigationBuilder
 import dagger.Module
@@ -16,7 +16,7 @@ internal object GoalsNavigationModule {
 
     @IntoSet
     @Provides
-    fun providesGoalsNavigation() : EntryProviderScope<NavKey>.(SnapshotStateList<NavKey>) -> Unit = { backStack ->
+    fun providesGoalsNavigation() : EntryProviderScope<NavKey>.(NavBackStack<NavKey>) -> Unit = { backStack ->
         goalsNavigationBuilder(backStack = backStack)
     }
 }

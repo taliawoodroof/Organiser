@@ -1,7 +1,7 @@
 package app.allulith.routing.impl.di
 
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import app.allulith.routing.impl.routingNavigationBuilder
 import dagger.Module
@@ -16,7 +16,7 @@ internal object RoutingNavigationModule {
 
     @IntoSet
     @Provides
-    fun provideRoutingNavigation() : EntryProviderScope<NavKey>.(SnapshotStateList<NavKey>) -> Unit = { backStack ->
+    fun provideRoutingNavigation() : EntryProviderScope<NavKey>.(NavBackStack<NavKey>) -> Unit = { backStack ->
         routingNavigationBuilder(backStack = backStack)
     }
 }

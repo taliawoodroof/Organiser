@@ -13,9 +13,12 @@ import androidx.compose.runtime.retain.retain
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import app.allulith.routing.api.destinations.RoutingDestination
@@ -28,14 +31,14 @@ internal class OrganiserActivity : ComponentActivity() {
 
     @Inject
     lateinit var entryBuilders:
-        Set<@JvmSuppressWildcards EntryProviderScope<NavKey>.(SnapshotStateList<NavKey>) -> Unit>
+        Set<@JvmSuppressWildcards EntryProviderScope<NavKey>.(NavBackStack<NavKey>) -> Unit>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
         setContent {
-            val backStack = retain { mutableStateListOf<NavKey>(RoutingDestination.Routing) }
+            val backStack = rememberNavBackStack(RoutingDestination.Routing)
 
             OrganiserTheme {
                 NavDisplay(

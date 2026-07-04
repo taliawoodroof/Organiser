@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.platform.LocalClipboard
@@ -18,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import app.allulith.settings.impl.R
 import app.allulith.ui.impl.components.appbars.OrganiserTopBar
@@ -30,7 +30,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 internal fun SettingsRoute(
-    backStack: SnapshotStateList<NavKey>,
+    backStack: NavBackStack<NavKey>,
     viewModel: SettingsViewModel = hiltViewModel(
         creationCallback = { factory: SettingsViewModel.Factory ->
             factory.create(backStack = backStack)

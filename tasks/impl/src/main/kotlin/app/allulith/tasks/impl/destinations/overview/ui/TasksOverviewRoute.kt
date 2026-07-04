@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -16,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import app.allulith.tasks.api.domain.Task
 import app.allulith.tasks.impl.R
@@ -30,7 +30,7 @@ import app.allulith.ui.impl.theme.OrganiserTheme
 
 @Composable
 internal fun TasksOverviewRoute(
-    backStack: SnapshotStateList<NavKey>,
+    backStack: NavBackStack<NavKey>,
     viewModel: TasksOverviewViewModel = hiltViewModel(
         creationCallback = { factory: TasksOverviewViewModel.Factory ->
             factory.create(backStack = backStack)

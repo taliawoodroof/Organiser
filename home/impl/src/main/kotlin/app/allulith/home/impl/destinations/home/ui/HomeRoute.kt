@@ -4,12 +4,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import app.allulith.home.impl.R
 import app.allulith.ui.impl.components.appbars.OrganiserTopBar
@@ -20,7 +20,7 @@ import app.allulith.ui.impl.theme.OrganiserTheme
 
 @Composable
 internal fun HomeRoute(
-    backStack: SnapshotStateList<NavKey>,
+    backStack: NavBackStack<NavKey>,
     viewModel: HomeViewModel = hiltViewModel(
         creationCallback = { factory: HomeViewModel.Factory ->
             factory.create(backStack)

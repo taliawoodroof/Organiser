@@ -1,8 +1,8 @@
 package app.allulith.goals.impl.destinations.overview.ui
 
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.asStateFlow
 @Stable
 @HiltViewModel(assistedFactory = GoalsOverviewViewModel.Factory::class)
 internal class GoalsOverviewViewModel @AssistedInject constructor(
-    @Assisted private val backStack: SnapshotStateList<NavKey>,
+    @Assisted private val backStack: NavBackStack<NavKey>,
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<GoalsOverview.UiState> = MutableStateFlow(GoalsOverview.UiState())
@@ -42,6 +42,6 @@ internal class GoalsOverviewViewModel @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory {
-        fun create(backStack: SnapshotStateList<NavKey>): GoalsOverviewViewModel
+        fun create(backStack: NavBackStack<NavKey>): GoalsOverviewViewModel
     }
 }

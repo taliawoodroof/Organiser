@@ -4,12 +4,12 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import app.allulith.tasks.api.domain.Task
 import app.allulith.tasks.impl.R
@@ -24,7 +24,7 @@ import app.allulith.ui.impl.theme.OrganiserTheme
 
 @Composable
 internal fun TaskCreationRoute(
-    backStack: SnapshotStateList<NavKey>,
+    backStack: NavBackStack<NavKey>,
     task: Task?,
     viewModel: TaskCreationViewModel = hiltViewModel(
         creationCallback = { factory: TaskCreationViewModel.Factory ->

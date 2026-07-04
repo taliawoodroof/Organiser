@@ -1,7 +1,7 @@
 package app.allulith.signup.impl.di
 
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import app.allulith.signup.impl.signUpNavigation
 import dagger.Module
@@ -16,7 +16,7 @@ internal object SignupNavigationModule {
 
     @IntoSet
     @Provides
-    fun providesSignupNavigation() : EntryProviderScope<NavKey>.(SnapshotStateList<NavKey>) -> Unit = { backStack ->
+    fun providesSignupNavigation() : EntryProviderScope<NavKey>.(NavBackStack<NavKey>) -> Unit = { backStack ->
         signUpNavigation(backStack = backStack)
     }
 }

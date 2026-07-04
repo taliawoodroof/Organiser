@@ -2,9 +2,9 @@ package app.allulith.settings.impl.destinations.settings.ui
 
 import android.content.Context
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import app.allulith.settings.impl.destinations.settings.domain.SettingsRepository
 import app.allulith.signup.api.destinations.SignUpDestination
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 @Stable
 @HiltViewModel(assistedFactory = SettingsViewModel.Factory::class)
 internal class SettingsViewModel @AssistedInject constructor(
-    @Assisted private val backStack: SnapshotStateList<NavKey>,
+    @Assisted private val backStack: NavBackStack<NavKey>,
     @param:ApplicationContext val context: Context,
     private val repository: SettingsRepository,
 ) : ViewModel() {
@@ -66,6 +66,6 @@ internal class SettingsViewModel @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory {
-        fun create(backStack: SnapshotStateList<NavKey>): SettingsViewModel
+        fun create(backStack: NavBackStack<NavKey>): SettingsViewModel
     }
 }

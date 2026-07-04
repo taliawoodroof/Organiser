@@ -1,7 +1,7 @@
 package app.allulith.settings.impl.di
 
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import app.allulith.settings.impl.settingsNavigationBuilder
 import dagger.Module
@@ -16,7 +16,7 @@ internal object SettingsNavigationModule {
 
     @IntoSet
     @Provides
-    fun provideSettingsNavigation() : EntryProviderScope<NavKey>.(SnapshotStateList<NavKey>) -> Unit = { backStack ->
+    fun provideSettingsNavigation() : EntryProviderScope<NavKey>.(NavBackStack<NavKey>) -> Unit = { backStack ->
         settingsNavigationBuilder(backStack = backStack)
     }
 }

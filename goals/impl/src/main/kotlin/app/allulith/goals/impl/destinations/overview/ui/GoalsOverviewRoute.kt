@@ -1,10 +1,10 @@
 package app.allulith.goals.impl.destinations.overview.ui
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import app.allulith.goals.impl.R
 import app.allulith.ui.impl.components.appbars.OrganiserTopBar
@@ -14,7 +14,7 @@ import app.allulith.ui.impl.theme.OrganiserTheme
 
 @Composable
 internal fun GoalsOverviewRoute(
-    backStack: SnapshotStateList<NavKey>,
+    backStack: NavBackStack<NavKey>,
     viewModel: GoalsOverviewViewModel = hiltViewModel(
         creationCallback = { factory: GoalsOverviewViewModel.Factory ->
             factory.create(backStack = backStack)

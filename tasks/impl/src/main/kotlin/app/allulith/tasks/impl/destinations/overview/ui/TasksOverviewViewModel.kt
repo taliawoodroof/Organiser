@@ -1,9 +1,9 @@
 package app.allulith.tasks.impl.destinations.overview.ui
 
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import app.allulith.data.api.OrganiserDatabase
 import app.allulith.tasks.api.destinations.TasksDestination
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 @Stable
 @HiltViewModel(assistedFactory = TasksOverviewViewModel.Factory::class)
 internal class TasksOverviewViewModel @AssistedInject constructor(
-    @Assisted private val backStack: SnapshotStateList<NavKey>,
+    @Assisted private val backStack: NavBackStack<NavKey>,
     private val database: OrganiserDatabase,
 ) : ViewModel() {
 
@@ -81,6 +81,6 @@ internal class TasksOverviewViewModel @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory {
-        fun create(backStack: SnapshotStateList<NavKey>): TasksOverviewViewModel
+        fun create(backStack: NavBackStack<NavKey>): TasksOverviewViewModel
     }
 }

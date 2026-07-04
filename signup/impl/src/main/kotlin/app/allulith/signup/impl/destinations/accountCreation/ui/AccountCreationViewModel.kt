@@ -1,9 +1,9 @@
 package app.allulith.signup.impl.destinations.accountCreation.ui
 
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import app.allulith.home.api.destinations.HomeDestination
 import app.allulith.signup.impl.destinations.accountCreation.domain.AccountCreationRepository
@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 @Stable
 @HiltViewModel(assistedFactory = AccountCreationViewModel.Factory::class)
 internal class AccountCreationViewModel @AssistedInject constructor(
-    @Assisted private val backStack: SnapshotStateList<NavKey>,
+    @Assisted private val backStack: NavBackStack<NavKey>,
     private val repository: AccountCreationRepository,
 ) : ViewModel() {
 
@@ -57,6 +57,6 @@ internal class AccountCreationViewModel @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory {
-        fun create(backStack: SnapshotStateList<NavKey>): AccountCreationViewModel
+        fun create(backStack: NavBackStack<NavKey>): AccountCreationViewModel
     }
 }
