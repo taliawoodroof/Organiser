@@ -1,8 +1,6 @@
 package app.allulith.tasks.impl.destinations.taskCreation.ui
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
@@ -13,10 +11,10 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
-import app.allulith.tasks.api.domain.Task
 import app.allulith.tasks.impl.R
 import app.allulith.ui.impl.components.appbars.OrganiserTopBar
 import app.allulith.ui.impl.components.appbars.OrganiserTopBarAction
+import app.allulith.ui.impl.components.loading.OrganiserLoader
 import app.allulith.ui.impl.components.pickers.OrganiserTimePicker
 import app.allulith.ui.impl.components.pickers.OrganiserTimerPickerTextField
 import app.allulith.ui.impl.components.textfields.OrganiserTextField
@@ -85,10 +83,7 @@ private fun TaskCreationScreen(
             }
         }
 
-        // Since we are loading from the database, this will be near instant
-        TaskCreation.UiState.Loading -> {
-            Box(modifier = Modifier.fillMaxSize())
-        }
+        TaskCreation.UiState.Loading -> OrganiserLoader()
     }
 }
 

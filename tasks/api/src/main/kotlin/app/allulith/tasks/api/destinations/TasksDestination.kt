@@ -5,8 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed class TasksDestination : NavKey {
-    @Serializable
-    data object TasksOverview : TasksDestination()
+
     @Serializable
     data class TaskCreation(val taskId: String?) : TasksDestination()
 }

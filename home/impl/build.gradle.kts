@@ -43,7 +43,6 @@ dependencies {
     implementation(project(":ui:impl"))
     implementation(project(":settings:api"))
     implementation(project(":tasks:api"))
-    implementation(project(":goals:api"))
 
     implementation(libs.bundles.core.ui)
     implementation(libs.bundles.compose)
