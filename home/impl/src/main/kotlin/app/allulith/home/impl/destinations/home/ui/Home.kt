@@ -1,15 +1,20 @@
 package app.allulith.home.impl.destinations.home.ui
 
+import app.allulith.tasks.api.domain.Task
+
 internal object Home {
 
-    data class UiState(
-        val name: String = "",
-    )
+    sealed class UiState {
+        data object Loading : UiState()
+        data class Content(
+            val name: String = "",
+            val tasks: List<Task> = emptyList(),
+        ) : UiState()
+    }
 
     sealed class UiEvent {
         data object OnSettingsTap : UiEvent()
-        data object OnTasksTap : UiEvent()
-        data object OnGoalsTap : UiEvent()
-        data object OnRemindersTap : UiEvent()
+        data class OnTaskTap(val taskId: String) : UiEvent()
+        data object OnAddTaskTap : UiEvent()
     }
 }

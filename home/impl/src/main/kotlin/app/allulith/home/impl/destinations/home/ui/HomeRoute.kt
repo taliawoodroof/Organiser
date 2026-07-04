@@ -1,12 +1,7 @@
 package app.allulith.home.impl.destinations.home.ui
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextDirection.Companion.Content
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -16,6 +11,8 @@ import app.allulith.home.impl.R
 import app.allulith.ui.impl.components.appbars.OrganiserTopBar
 import app.allulith.ui.impl.components.appbars.OrganiserTopBarAction
 import app.allulith.ui.impl.components.cards.OrganiserRowCard
+import app.allulith.ui.impl.components.fab.OrganiserFloatingActionButton
+import app.allulith.ui.impl.components.loading.OrganiserLoader
 import app.allulith.ui.impl.templates.OrganiserScreen
 import app.allulith.ui.impl.theme.OrganiserTheme
 
@@ -40,6 +37,20 @@ private fun HomeScreen(
     uiState: Home.UiState,
     onUiEvent: (Home.UiEvent) -> Unit,
 ) {
+    when (uiState) {
+        is Home.UiState.Content -> Content(
+            uiState = uiState,
+            onUiEvent = onUiEvent,
+        )
+        Home.UiState.Loading -> OrganiserLoader()
+    }
+}
+
+@Composable
+private fun Content(
+    uiState: Home.UiState.Content,
+    onUiEvent: (Home.UiEvent) -> Unit,
+) {
     OrganiserScreen(
         header = stringResource(R.string.home_header, uiState.name),
         description = stringResource(R.string.home_description),
@@ -56,53 +67,27 @@ private fun HomeScreen(
                 ),
             )
         },
+        floatingActionButtonContent = {
+            OrganiserFloatingActionButton(
+                onClick = {
+                    onUiEvent(Home.UiEvent.OnAddTaskTap)
+                },
+                toolTip = stringResource(R.string.home_tasks_add_task_tooltip),
+                icon = R.drawable.ic_add,
+                iconDescription = stringResource(R.string.cd_add_task),
+            )
+        },
     ) {
-        TasksRow(onUiEvent = onUiEvent)
-        GoalsRow(onUiEvent = onUiEvent)
-        RemindersRow(onUiEvent = onUiEvent)
+        uiState.tasks.forEach { task ->
+            OrganiserRowCard(
+                onClick = {
+                    onUiEvent(Home.UiEvent.OnTaskTap(task.id))
+                },
+                header = task.title,
+                description = task.description,
+            )
+        }
     }
-}
-
-@Composable
-private fun TasksRow(
-    onUiEvent: (Home.UiEvent) -> Unit,
-) {
-    Column {
-        Spacer(modifier = Modifier.height(OrganiserTheme.dimensions.dim150))
-        OrganiserRowCard(
-            leadingIcon = R.drawable.ic_task,
-            onClick = {
-                onUiEvent(Home.UiEvent.OnTasksTap)
-            },
-            header = stringResource(R.string.home_tasks_row_header),
-        )
-    }
-}
-
-@Composable
-private fun GoalsRow(
-    onUiEvent: (Home.UiEvent) -> Unit,
-) {
-    OrganiserRowCard(
-        leadingIcon = R.drawable.ic_goal,
-        onClick = {
-            onUiEvent(Home.UiEvent.OnGoalsTap)
-        },
-        header = stringResource(R.string.home_goals_row_header),
-    )
-}
-
-@Composable
-private fun RemindersRow(
-    onUiEvent: (Home.UiEvent) -> Unit,
-) {
-    OrganiserRowCard(
-        leadingIcon = R.drawable.ic_reminder,
-        onClick = {
-            onUiEvent(Home.UiEvent.OnRemindersTap)
-        },
-        header = stringResource(R.string.home_reminders_row_header),
-    )
 }
 
 @PreviewLightDark
@@ -110,8 +95,9 @@ private fun RemindersRow(
 private fun HomeScreenPreview() {
     OrganiserTheme {
         HomeScreen(
-            uiState = Home.UiState(
+            uiState = Home.UiState.Content(
                 name = "Nota Areal",
+                tasks = emptyList(),
             ),
             onUiEvent = {},
         )
