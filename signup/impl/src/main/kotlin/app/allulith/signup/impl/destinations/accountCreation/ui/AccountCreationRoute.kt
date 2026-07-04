@@ -23,6 +23,7 @@ import app.allulith.ui.impl.theme.OrganiserTheme
 internal fun AccountCreationRoute(
     backStack: NavBackStack<NavKey>,
     viewModel: AccountCreationViewModel = hiltViewModel(
+        key = backStack.hashCode().toString(),
         creationCallback = { factory: AccountCreationViewModel.Factory ->
             factory.create(backStack = backStack)
         },

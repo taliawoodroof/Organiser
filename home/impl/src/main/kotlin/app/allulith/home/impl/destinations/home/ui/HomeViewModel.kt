@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 @Stable
 @HiltViewModel(assistedFactory = HomeViewModel.Factory::class)
 internal class HomeViewModel @AssistedInject constructor(
-    @Assisted val backStack: NavBackStack<NavKey>,
+    @Assisted private val backStack: NavBackStack<NavKey>,
     private val repository: HomeRepository,
 ) : ViewModel() {
 

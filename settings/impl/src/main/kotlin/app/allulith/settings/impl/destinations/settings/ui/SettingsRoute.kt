@@ -32,6 +32,7 @@ import kotlinx.coroutines.launch
 internal fun SettingsRoute(
     backStack: NavBackStack<NavKey>,
     viewModel: SettingsViewModel = hiltViewModel(
+        key = backStack.hashCode().toString(),
         creationCallback = { factory: SettingsViewModel.Factory ->
             factory.create(backStack = backStack)
         },

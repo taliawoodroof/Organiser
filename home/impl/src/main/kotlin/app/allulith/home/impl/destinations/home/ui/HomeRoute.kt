@@ -22,6 +22,7 @@ import app.allulith.ui.impl.theme.OrganiserTheme
 internal fun HomeRoute(
     backStack: NavBackStack<NavKey>,
     viewModel: HomeViewModel = hiltViewModel(
+        key = backStack.hashCode().toString(),
         creationCallback = { factory: HomeViewModel.Factory ->
             factory.create(backStack)
         }

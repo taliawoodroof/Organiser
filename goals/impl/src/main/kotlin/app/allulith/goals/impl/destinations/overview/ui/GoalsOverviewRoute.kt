@@ -16,6 +16,7 @@ import app.allulith.ui.impl.theme.OrganiserTheme
 internal fun GoalsOverviewRoute(
     backStack: NavBackStack<NavKey>,
     viewModel: GoalsOverviewViewModel = hiltViewModel(
+        key = backStack.hashCode().toString(),
         creationCallback = { factory: GoalsOverviewViewModel.Factory ->
             factory.create(backStack = backStack)
         }

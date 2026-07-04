@@ -27,6 +27,7 @@ internal fun TaskCreationRoute(
     backStack: NavBackStack<NavKey>,
     task: Task?,
     viewModel: TaskCreationViewModel = hiltViewModel(
+        key = backStack.hashCode().toString(),
         creationCallback = { factory: TaskCreationViewModel.Factory ->
             factory.create(
                 backStack = backStack,
